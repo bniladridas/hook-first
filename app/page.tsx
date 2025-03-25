@@ -5,7 +5,7 @@ import { AlertTriangle, X } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { useTheme } from 'next-themes';
-import { generateInference } from '@/lib/gemini';
+import { generateInference, PersonalityType } from '@/lib/gemini';
 import { MarkdownRenderer } from '@/components/markdown-renderer';
 import { Progress } from '@/components/ui/progress';
 import { PersonalitySelector } from '@/components/personality-selector';
@@ -20,7 +20,7 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const { theme } = useTheme();
-  const [personality, setPersonality] = useState<string | null>(null);
+  const [personality, setPersonality] = useState<PersonalityType | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);

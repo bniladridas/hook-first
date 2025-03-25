@@ -160,9 +160,26 @@ Always balance theoretical depth with practical implementation advice, using rea
 
 type PersonalityKey = keyof typeof PERSONALITIES;
 
+export type PersonalityType = 
+  | "trustworthyAI" 
+  | "visitor" 
+  | "appleGenius" 
+  | "codeCoach" 
+  | "mathProfessor" 
+  | "mlExpert";
+
+export const personalities: Record<PersonalityType, { name: string }> = {
+  trustworthyAI: { name: "Trustworthy AI" },
+  visitor: { name: "Visitor" },
+  appleGenius: { name: "Apple Genius" },
+  codeCoach: { name: "Code Coach" },
+  mathProfessor: { name: "Math Professor" },
+  mlExpert: { name: "ML Expert" }
+};
+
 export async function generateInference(
   input: string, 
-  personality: PersonalityKey = 'aristocrat'
+  personality: PersonalityType = 'trustworthyAI'
 ) {
   if (!process.env.NEXT_PUBLIC_GEMINI_API_KEY) {
     throw new Error('GEMINI_API_KEY is not defined in environment variables');
@@ -200,6 +217,3 @@ export async function generateInference(
     throw new Error(`Synthara AI Pilot Analysis Error: ${error.message}`);
   }
 }
-
-// Export personalities for UI usage
-export const personalities = PERSONALITIES;

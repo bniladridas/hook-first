@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { personalities } from '@/lib/gemini';
+import { personalities, PersonalityType } from '@/lib/gemini';
 import { cn } from '@/lib/utils';
 import {
   DropdownMenu,
@@ -12,20 +12,20 @@ import {
 import { Brain } from 'lucide-react';
 
 interface PersonalitySelectorProps {
-  onSelect: (personality: string) => void;
+  onSelect: (personality: PersonalityType) => void;
   className?: string;
 }
 
 export function PersonalitySelector({ onSelect, className }: PersonalitySelectorProps) {
-  const [selected, setSelected] = React.useState<string | null>(null);
+  const [selected, setSelected] = React.useState<PersonalityType | null>(null);
 
-  const handleSelect = (key: string) => {
+  const handleSelect = (key: PersonalityType) => {
     setSelected(key);
     onSelect(key);
   };
 
   const triggerText = selected 
-    ? personalities[selected as keyof typeof personalities]?.name 
+    ? personalities[selected]?.name 
     : 'choose personality';
 
   return (
@@ -38,7 +38,7 @@ export function PersonalitySelector({ onSelect, className }: PersonalitySelector
         {Object.entries(personalities).map(([key, personality]) => (
           <DropdownMenuItem 
             key={key} 
-            onClick={() => handleSelect(key)}
+            onClick={() => handleSelect(key as PersonalityType)}
             className={cn(
               "text-neutral-400 hover:text-neutral-300 hover:bg-neutral-800 font-mono text-xs sm:text-sm",
               selected === key && "text-neutral-200 bg-neutral-800"
