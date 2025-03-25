@@ -11,9 +11,9 @@ interface MarkdownRendererProps {
   className?: string;
 }
 
-interface CodeProps extends ComponentProps<'code'> {
+type CodeProps = ComponentProps<'code'> & {
   inline?: boolean;
-}
+};
 
 export function MarkdownRenderer({ content, className = '' }: MarkdownRendererProps) {
   return (
@@ -22,26 +22,26 @@ export function MarkdownRenderer({ content, className = '' }: MarkdownRendererPr
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypePrism]}
         components={{
-          h1: ({ node, ...props }) => <h1 className="text-2xl font-bold mb-4" {...props} />,
-          h2: ({ node, ...props }) => <h2 className="text-xl font-bold mb-3" {...props} />,
-          h3: ({ node, ...props }) => <h3 className="text-lg font-bold mb-2" {...props} />,
-          p: ({ node, ...props }) => <p className="mb-4" {...props} />,
-          ul: ({ node, ...props }) => <ul className="list-disc ml-6 mb-4" {...props} />,
-          ol: ({ node, ...props }) => <ol className="list-decimal ml-6 mb-4" {...props} />,
-          li: ({ node, ...props }) => <li className="mb-1" {...props} />,
-          code: ({ node, inline, ...props }: CodeProps) => 
+          h1: ({ ...props }) => <h1 className="text-2xl font-bold mb-4" {...props} />,
+          h2: ({ ...props }) => <h2 className="text-xl font-bold mb-3" {...props} />,
+          h3: ({ ...props }) => <h3 className="text-lg font-bold mb-2" {...props} />,
+          p: ({ ...props }) => <p className="mb-4" {...props} />,
+          ul: ({ ...props }) => <ul className="list-disc ml-6 mb-4" {...props} />,
+          ol: ({ ...props }) => <ol className="list-decimal ml-6 mb-4" {...props} />,
+          li: ({ ...props }) => <li className="mb-1" {...props} />,
+          code: ({ inline, ...props }: CodeProps) => 
             inline ? (
               <code className="bg-muted px-1.5 py-0.5 rounded text-sm" {...props} />
             ) : (
               <code className="block bg-muted p-4 rounded-lg overflow-x-auto" {...props} />
             ),
-          pre: ({ node, ...props }) => (
+          pre: ({ ...props }) => (
             <pre className="bg-muted p-4 rounded-lg overflow-x-auto mb-4" {...props} />
           ),
-          blockquote: ({ node, ...props }) => (
+          blockquote: ({ ...props }) => (
             <blockquote className="border-l-4 border-primary pl-4 italic mb-4" {...props} />
           ),
-          a: ({ node, ...props }) => (
+          a: ({ ...props }) => (
             <a className="text-primary hover:underline" {...props} />
           ),
         }}
